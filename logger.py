@@ -74,7 +74,7 @@ def delet_data():
 
 
     elif v == 2:
-         with open('tel2.csv', 'r', encoding = 'utf-8') as f :
+        with open('tel2.csv', 'r', encoding = 'utf-8') as f :
             tel2 = f.readlines()
             tel2_count = len(tel2)
             print(f"Количество записей в файле: {tel2_count/2}")
@@ -85,11 +85,17 @@ def delet_data():
                 m = int(input("введите число "))
             if m == 0:
                 print(tel2[(l-1)*2])
-                #i = 0
-                #for i in range(i,2):
-                del tel2[(l-1)*2]
-                #    i += 1
-
+                i = 0
+                for i in range(i,2):
+                    del tel2[(l-1)*2]
+                    i += 1
+            elif m != 0:
+                elements = tel2[l].split(";")
+                elements[m-1] = ' '
+                tel2[l] = ';'.join(elements)
+        
+        with open('tel2.csv', 'w') as f:
+            f.writelines(tel2)
 
 
 
