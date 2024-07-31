@@ -53,9 +53,14 @@ def delet_data():
         with open('tel1.csv', 'r', encoding = 'utf-8') as f :
             tel1 = f.readlines()
             tel1_count = len(tel1)
-            print(tel1_count)
+           
             print(f"Количество записей в файле: {tel1_count/5}")
             y = int(input("Какую запись удалить? "))
+
+            for i in range(5):
+                print(tel1[(y-1)*5+i])
+                i += 1
+
             t = int(input("Выберите, что Вы хотите удалить: 1 - Имя, 2 - Фамилию, 3 - Телефон, 4 - Адрес, 0 - удалить всю запись "))
             while t != 1 and t != 2 and t != 3 and t != 4 and t!= 0:
                 print("Ошибка ввода")
@@ -79,6 +84,7 @@ def delet_data():
             tel2_count = len(tel2)
             print(f"Количество записей в файле: {tel2_count/2}")
             l = int(input("Какую запись удалить? "))
+            print(tel2[(l-1)*2])
             m = int(input("Выберите, что Вы хотите удалить: 1 - Имя, 2 - Фамилию, 3 - Телефон, 4 - Адрес, 0 - удалить всю запись "))
             while m != 1 and m != 2 and m != 3 and m != 4 and m != 0:
                 print("Ошибка ввода")
@@ -89,10 +95,16 @@ def delet_data():
                 for i in range(i,2):
                     del tel2[(l-1)*2]
                     i += 1
-            elif m != 0:
-                elements = tel2[l].split(";")
+            if m == 4:
+                elements = tel2[(l-1)*2].split(";")
                 elements[m-1] = ' '
-                tel2[l] = ';'.join(elements)
+                tel2[(l-1)*2] = ';'.join(elements) +"\n"
+            
+            
+            if m != 0 and m != 4:
+                elements = tel2[(l-1)*2].split(";")
+                elements[m-1] = ' '
+                tel2[(l-1)*2] = ';'.join(elements)
         
         with open('tel2.csv', 'w') as f:
             f.writelines(tel2)
@@ -100,7 +112,66 @@ def delet_data():
 
 
 
-delet_data()
+def rename_data():
+    v = int(input("В каком файле хотите изменить данные?  \n"))
+    while v != 1 and v != 2:
+        print("Ошибка ввода")
+        v = int(input("введите число "))
+
+    if v == 1:
+        with open('tel1.csv', 'r', encoding = 'utf-8') as f :
+            tel1 = f.readlines()
+            tel1_count = len(tel1)       
+            print(f"Количество записей в файле: {tel1_count/5}")
+            y1 = int(input("Какую запись изменить? "))
+
+            for i in range(5):
+                print(tel1[(y1-1)*5+i])
+                i += 1
+
+            t1 = int(input("Выберите, что Вы хотите изменить: 1 - Имя, 2 - Фамилию, 3 - Телефон, 4 - Адрес "))
+            while t1 != 1 and t1 != 2 and t1 != 3 and t1 != 4:
+                print("Ошибка ввода")
+                t1 = int(input("введите число "))
+            new_data = str(input("введите новые данные  "))
+            tel1[(y1-1)*5+t1-1] = new_data + "\n"
+
+
+        with open('tel1.csv', 'w') as f:
+            f.writelines(tel1)
+
+
+    elif v == 2:
+        with open('tel2.csv', 'r', encoding = 'utf-8') as f :
+            tel2 = f.readlines()
+            tel2_count = len(tel2)
+            print(f"Количество записей в файле: {tel2_count/2}")
+            l1 = int(input("Какую запись изменить? "))
+            print(tel2[(l1-1)*2])
+            m1 = int(input("Выберите, что Вы хотите удалить: 1 - Имя, 2 - Фамилию, 3 - Телефон, 4 - Адрес "))
+            while m1 != 1 and m1 != 2 and m1 != 3 and m1 != 4:
+                print("Ошибка ввода")
+                m1 = int(input("введите число "))
+
+            elements = tel2[(l1-1)*2].split(";")
+            new_data1 = str(input("введите новые данные  "))
+            
+
+
+            if m1 == 4:
+                elements[m1-1] = new_data1 + "\n"
+            
+            if m1 != 4:
+                elements[m1-1] = new_data1
+
+            tel2[(l1-1)*2] = ';'.join(elements)
+        
+        with open('tel2.csv', 'w') as f:
+            f.writelines(tel2)
+
+
+
+
 
 
 
